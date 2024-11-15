@@ -1,3 +1,4 @@
+VIEW a youtube description of this project: https://youtu.be/3rqjBs0xfLk?si=PuLKbtzniNR1GxeB
 // DESCRIPTION //
 Algorithm:
 This part of the package creates a network, treating each unique donor/recipient pair as an edge and applying some filters detailed in our paper. Using a plot of the eigen-spectrum of the resulting adjacency matrix, we attempt to discover a hierarchical structure which informs a spectral fuzzy-c-means clustering of the nodes in the network. The resulting clusters can be sorted into parents and children using the final jaccard similarity comparisons.
