@@ -1,0 +1,311 @@
+{
+    "name": "DISTRIBUTION",
+    "children": [
+        {
+            "name": "1",
+            "size": 52.58369723435226,
+            "displayname": "Not Democrat",
+            "children": [
+                {
+                    "name": "12",
+                    "size": 40.90247452692868,
+                    "displayname": "Republican",
+                    "children": [
+                        {
+                            "name": "120",
+                            "displayname": "Incumbent",
+                            "size": 4.2212518195050945,
+                            "children": [
+                                {
+                                    "name": "1201",
+                                    "displayname": "City",
+                                    "size": 0.036390101892285295,
+                                    "pmen": 57.3394495412844,
+                                    "punemployed": 18.34862385321101,
+                                    "pretired": 30.275229357798167,
+                                    "pdemocrat": 35.77981651376147,
+                                    "prepublican": 21.55963302752294
+                                },
+                                {
+                                    "name": "1203",
+                                    "displayname": "Rural",
+                                    "size": 2.1652110625909753,
+                                    "pmen": 60.50420168067227,
+                                    "punemployed": 11.76470588235294,
+                                    "pretired": 18.907563025210084,
+                                    "pdemocrat": 31.932773109243694,
+                                    "prepublican": 32.35294117647059
+                                },
+                                {
+                                    "name": "120U",
+                                    "size": 2.019650655021834
+                                }
+                            ],
+                            "pmen": 59.05172413793104,
+                            "punemployed": 14.870689655172415,
+                            "pretired": 24.568965517241377,
+                            "pdemocrat": 33.62068965517241,
+                            "prepublican": 27.155172413793103
+                        },
+                        {
+                            "name": "124",
+                            "displayname": "Challenger",
+                            "size": 29.80349344978166,
+                            "children": [
+                                {
+                                    "name": "1240",
+                                    "size": 6.477438136826783,
+                                    "displayname": "Men Donating More Than 4000",
+                                    "children": [],
+                                    "pmen": 64.04494382022472,
+                                    "punemployed": 0.1404494382022472,
+                                    "pretired": 56.46067415730337,
+                                    "pdemocrat": 0.42134831460674155,
+                                    "prepublican": 10.112359550561797
+                                },
+                                {
+                                    "name": "1242",
+                                    "displayname": "Men Donating More Than 3000, but less than 4000",
+                                    "size": 7.741994177583698,
+                                    "children": [],
+                                    "pmen": 65.4524089306698,
+                                    "punemployed": 0.0,
+                                    "pretired": 54.406580493537014,
+                                    "pdemocrat": 0.7050528789659225,
+                                    "prepublican": 11.515863689776733
+                                },
+                                {
+                                    "name": "1245",
+                                    "displayname": "Men Donating Less Than 3000",
+                                    "size": 8.979257641921397,
+                                    "pmen": 61.29685916919959,
+                                    "punemployed": 5.775075987841945,
+                                    "pretired": 41.23606889564336,
+                                    "pdemocrat": 15.29888551165147,
+                                    "prepublican": 13.880445795339414
+                                },
+                                {
+                                    "name": "1246",
+                                    "displayname": "Women",
+                                    "size": 6.59570596797671,
+                                    "pmen": 58.620689655172406,
+                                    "punemployed": 0.6896551724137931,
+                                    "pretired": 54.89655172413793,
+                                    "pdemocrat": 3.1724137931034484,
+                                    "prepublican": 12.827586206896552
+                                },
+                                {
+                                    "name": "124U",
+                                    "size": 0.009097525473070234
+                                }
+                            ],
+                            "pmen": 62.39316239316239,
+                            "punemployed": 1.9230769230769231,
+                            "pretired": 50.97680097680097,
+                            "pdemocrat": 5.586080586080587,
+                            "prepublican": 12.21001221001221
+                        },
+                        {
+                            "name": "12U",
+                            "size": 6.8777292576419224
+                        }
+                    ],
+                    "pmen": 61.877224199288264,
+                    "punemployed": 5.315836298932385,
+                    "pretired": 41.85943060498221,
+                    "pdemocrat": 16.347864768683273,
+                    "prepublican": 15.102313167259787
+                },
+                {
+                    "name": "1U",
+                    "size": 11.681222707423576
+                }
+            ],
+            "pmen": 62.47404844290657,
+            "punemployed": 5.46712802768166,
+            "pretired": 37.52595155709342,
+            "pdemocrat": 19.06574394463668,
+            "prepublican": 18.875432525951556
+        },
+        {
+            "name": "0",
+            "size": 47.41630276564774,
+            "displayname": "Democrat",
+            "children": [
+                {
+                    "name": "01",
+                    "size": 15.656841339155749,
+                    "displayname": "Wealthy Democrat",
+                    "children": [
+                        {
+                            "name": "011",
+                            "size": 9.397743813682679,
+                            "displayname": "Open Seat",
+                            "children": [
+                                {
+                                    "name": "0117",
+                                    "displayname": "Small City",
+                                    "size": 2.4241695026348458,
+                                    "pmen": 57.853658536585364,
+                                    "punemployed": 23.70731707317073,
+                                    "pretired": 9.170731707317072,
+                                    "pdemocrat": 65.85365853658537,
+                                    "prepublican": 17.365853658536583
+                                },
+                                {
+                                    "name": "0113",
+                                    "displayname": "Employed Men that are not Republican",
+                                    "size": 0.25222572859784526,
+                                    "pmen": 100.0,
+                                    "punemployed": 0.0,
+                                    "pretired": 0.0,
+                                    "pdemocrat": 33.33333333333333,
+                                    "prepublican": 0.0
+                                },
+                                {
+                                    "name": "011U",
+                                    "size": 6.721348582449987
+                                }
+                            ],
+                            "pmen": 57.986447241045504,
+                            "punemployed": 23.62052274927396,
+                            "pretired": 9.293320425943854,
+                            "pdemocrat": 65.63407550822846,
+                            "prepublican": 17.32817037754114
+                        },
+                        {
+                            "name": "010",
+                            "size": 1.828602620087336,
+                            "displayname": "Incumbent",
+                            "children": [
+                                {
+                                    "name": "0101",
+                                    "displayname": "Atlanta Resident",
+                                    "size": 0.11740242188715862,
+                                    "pmen": 73.41772151898735,
+                                    "punemployed": 8.227848101265822,
+                                    "pretired": 15.822784810126583,
+                                    "pdemocrat": 25.949367088607595,
+                                    "prepublican": 24.050632911392405
+                                },
+                                {
+                                    "name": "0103",
+                                    "displayname": "Rural",
+                                    "size": 0.1212359703569434,
+                                    "pmen": 0.0,
+                                    "punemployed": 0.0,
+                                    "pretired": 100.0,
+                                    "pdemocrat": 0.0,
+                                    "prepublican": 100.0
+                                },
+                                {
+                                    "name": "010U",
+                                    "size": 1.5899642278432338
+                                }
+                            ],
+                            "pmen": 71.14427860696517,
+                            "punemployed": 10.44776119402985,
+                            "pretired": 14.427860696517413,
+                            "pdemocrat": 27.860696517412936,
+                            "prepublican": 26.865671641791046
+                        },
+                        {
+                            "name": "015",
+                            "size": 1.4374090247452693,
+                            "displayname": "Challenger",
+                            "children": [
+                                {
+                                    "name": "0156",
+                                    "displayname": "Women",
+                                    "size": 0.11613902928162198,
+                                    "children": [],
+                                    "pmen": 55.00000000000001,
+                                    "punemployed": 15.0,
+                                    "pretired": 12.5,
+                                    "pdemocrat": 52.5,
+                                    "prepublican": 17.5
+                                },
+                                {
+                                    "name": "015U",
+                                    "size": 1.3212699954636475
+                                }
+                            ],
+                            "pmen": 53.16455696202531,
+                            "punemployed": 12.658227848101266,
+                            "pretired": 15.822784810126583,
+                            "pdemocrat": 42.405063291139236,
+                            "prepublican": 17.72151898734177
+                        },
+                        {
+                            "name": "01U",
+                            "size": 2.9930858806404648
+                        }
+                    ],
+                    "pmen": 59.90703079604881,
+                    "punemployed": 19.174898314933177,
+                    "pretired": 10.63335270191749,
+                    "pdemocrat": 53.22486926205694,
+                    "prepublican": 19.697850087158628
+                },
+                {
+                    "name": "00",
+                    "size": 31.759461426491992,
+                    "displayname": "Low Income Democrat",
+                    "children": [
+                        {
+                            "name": "002",
+                            "displayname": "Unemployed",
+                            "size": 21.074552556103345,
+                            "children": [
+                                {
+                                    "name": "0024",
+                                    "displayname": "Single Donation",
+                                    "size": 6.121765540093477,
+                                    "pmen": 64.51612903225806,
+                                    "punemployed": 8.113391984359726,
+                                    "pretired": 25.317693059628542,
+                                    "pdemocrat": 19.550342130987293,
+                                    "prepublican": 43.499511241446726
+                                },
+                                {
+                                    "name": "002U",
+                                    "size": 14.952787016009868
+                                }
+                            ],
+                            "pmen": 64.66367713004485,
+                            "punemployed": 8.071748878923767,
+                            "pretired": 25.47085201793722,
+                            "pdemocrat": 18.744394618834082,
+                            "prepublican": 44.2152466367713
+                        },
+                        {
+                            "name": "003",
+                            "displayname": "Self-Employed",
+                            "size": 6.34146795441443,
+                            "children": [],
+                            "pmen": 72.26890756302521,
+                            "punemployed": 5.182072829131653,
+                            "pretired": 28.711484593837532,
+                            "pdemocrat": 12.324929971988796,
+                            "prepublican": 25.07002801120448
+                        },
+                        {
+                            "name": "00U",
+                            "size": 4.34344091597422
+                        }
+                    ],
+                    "pmen": 67.31595531366371,
+                    "punemployed": 7.991979375537095,
+                    "pretired": 22.71555428244056,
+                    "pdemocrat": 23.231165855055856,
+                    "prepublican": 33.42881695789172
+                }
+            ],
+            "pmen": 64.8695318495779,
+            "punemployed": 11.684574059861857,
+            "pretired": 18.726016884113584,
+            "pdemocrat": 33.1350729086723,
+            "prepublican": 28.89485801995395
+        }
+    ]
+}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fuzzy Hierarchical Clustering of Campaign Finance Data</title>
+  <style>
+    path {
+      stroke: #fff;
+    }
+    .legend {
+      font-size: 12px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .container1 {
+      position: relative;
+    }
+    .end-text {
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+    }
+    .legend rect {
+      width: 18px;
+      height: 18px;
+      fill: transparent;
+      stroke-width: 1px;
+    }
+    .select-container {
+      width: calc(1/2 * 100%);
+      float: right;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    #visualization-type {
+      margin-right: 30px; /* Optional: Add some right margin for spacing */
+    }
+    .main-heading {
+      font-size: 30px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .sub-heading {
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .visualization {
+      width: calc(2/7* 100%);
+      float: left;
+    }
+    .circle {
+      width: calc(1/2 * 100%);
+      height: 700px;
+      float:right;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .bar-chart-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      height: 400px;
+    }
+    .axis {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    .bar {
+      width: 30px;
+      height: 0;
+      margin: 2px;
+      background-color: steelblue;
+      transition: height 0.5s ease-in-out;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .bar-label {
+      color: black;
+      text-align: center;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    .axis line {
+        stroke: #000;
+    }
+
+    .women { background-color: #FF69B4; }
+    .democrat { background-color: #007bff; }
+    .republican { background-color: #dc3545; }
+  </style>
+</head>
+<body>
+    <div class="container1"></div>
+    <div class="main-heading">Fuzzy Hierarchical Clustering of Campaign Finance Data</div>
+    <div class="sub-heading">Interact with the sunburst on the left of the screen to learn more about clusters of campaign donors.<br>Select a category from the drop-down menu on the right to see a bar chart displaying more information. When hovering over the sunburst, the cluster name and percentage of donors in that cluster will be displayed.<br> Click to zoom into clusters and discover more.</div>
+    <div class="sub-heading">Note: Portions of this graph that are pink or purple represent fuzzy clustering.</div>
+  <div class="visualization">
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script>
+      var width = 640, height = 700,
+          radius = (Math.min(width, height) / 2) - 10;
+
+      var x = d3.scale.linear().range([0, 2 * Math.PI]);
+      var y = d3.scale.sqrt().range([0, radius]);
+
+      var partition = d3.layout.partition().value(function(d) { return d.size; });
+      var arc = d3.svg.arc()
+                  .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+                  .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+                  .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+                  .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+      var svg = d3.select(".visualization").append("svg")
+                  .attr("width", width)
+                  .attr("height", height)
+                  .append("g")
+                  .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
+      var selectedCategory = "";
+
+      d3.json("sunburstdata.json", function(error, root) {
+        if (error) throw error;
+
+        svg.selectAll("path")
+            .data(partition.nodes(root))
+            .enter().append("path")
+            .attr("d", arc)
+            .style("fill", function(d) { 
+                if (d.name.endsWith("U")) return "#ffffff";
+                else if (d.name.charAt(3) === "3") return "#d8b8ff";
+                else if (d.name.charAt(3) === "6") return "#FF76DC";
+                else if (d.name.charAt(2) === "0") return "purple"; 
+                else if (d.name.startsWith("0")) return "blue";
+                else if (d.name.startsWith("1")) return "red";
+                return "#ffffff";
+            })
+            .on("mouseover", function(d) { 
+                if (!d.name.endsWith("U") && d.name !== "DISTRIBUTION" && selectedCategory) {
+                    createBarChart(d);
+                }
+            })
+            .on("mouseout", removeBarChart)
+            .on("click", function(d) {
+                zoom(d);
+            })
+            .append("title")
+            .text(function(d) { 
+              var size = parseFloat(d.size).toFixed(3); // Round to 3 decimal places
+              
+              // Return text only when d.name is not "DISTRIBUTION" or ends with "U"
+              if (d.name !== "DISTRIBUTION" && !d.name.endsWith("U")) {
+                  return "Cluster: " + d.displayname +  " " + "\n" + "Percent: " + size;
+              };
+            });
+
+        // Handling dropdown change
+        document.getElementById('visualization-type').addEventListener('change', function() {
+          selectedCategory = this.value;
+          removeBarChart(); // Clear existing charts when category changes
+        });
+
+        // Legend
+        var legend = svg.selectAll(".legend")
+            .data(["Democrat", "Republican", "Incumbent", "Rural", "Women"])
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(0," + (i * 20 - height / 2 + 20) + ")"; });
+
+        legend.append("rect")
+            .attr("x", width / 2 - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", function(d, i) {
+                if (i === 0) return "blue";
+                else if (i === 1) return "red";
+                else if (i === 2) return "purple"; 
+                else if (i === 3) return "#d8b8ff"; 
+                else if (i === 4) return "#FF76DC"; 
+            });
+
+        legend.append("text")
+            .attr("x", width / 2 - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d; });
+
+      });
+
+      function zoom(d) {
+        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+            yd = d3.interpolate(y.domain(), [d.y, 1]),
+            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+
+        svg.transition()
+           .duration(750)
+           .selectAll("path")
+           .attrTween("d", function(d) {
+             return function() { return arc(d); };
+           })
+           .tween("scale", function() {
+             return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+           });
+      }
+
+      function createBarChart(d) {
+        var container = d3.select(".circle").html('').append("div")
+                                 .attr("class", "bar-chart-container");
+        var data = [];
+        if (selectedCategory === "genderDistribution") {
+          data.push({ label: 'Men', value: d.pmen, class: 'men' });
+          data.push({ label: 'Women', value: 100 - d.pmen, class: 'women' });
+        } else if (selectedCategory === "employmentStatus") {
+          data.push({ label: 'Employed', value: 100 - d.punemployed - d.pretired, class: 'neither' });
+          data.push({ label: 'Unemployed', value: d.punemployed, class: 'unemployed' });
+          data.push({ label: 'Retired', value: d.pretired, class: 'retired' });
+        } else if (selectedCategory === "politicalParty") {
+          data.push({ label: 'Democrat', value: d.pdemocrat, class: 'democrat' });
+          data.push({ label: 'Republican', value: d.prepublican, class: 'republican' });
+          data.push({ label: 'Third Party', value: 100 - d.pdemocrat - d.prepublican, class: 'neither' });
+        }
+
+        // Set the dimensions and margins of the graph
+        var margin = {top: 50, right: 30, bottom: 50, left: 60},
+            width = 700 - margin.left - margin.right,
+            height = 300 - margin.top - margin.bottom;
+
+        // Set the ranges
+        var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+        var y = d3.scale.linear().range([height, 0]);
+
+        // Define the axes
+        var xAxis = d3.svg.axis().scale(x).orient("bottom");
+        var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+
+        // Add the SVG element
+        var svg = container.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", 
+                    "translate(" + margin.left + "," + margin.top + ")");
+        
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text("Cluster " + d.displayname); // Use d.displayname here
+
+        // Scale the range of the data in the domains
+        x.domain(data.map(function(d) { return d.label; }));
+        y.domain([0, 100]); // Assuming data values are percentages out of 100
+
+        // Add the X Axis
+        var xAxisGroup = svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        // Add a horizontal line for the X axis
+        xAxisGroup.append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", width)
+            .attr("y2", 0)
+            .style("stroke", "black");
+
+        // Add the Y Axis
+        var yAxisGroup = svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+
+        // Add a vertical line for the Y axis
+        yAxisGroup.append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", 0)
+            .attr("y2", height)
+            .style("stroke", "black");
+        
+        function getFillColor(d) {
+            // Add conditions based on classes to determine fill color
+            if (d.class === 'men') return '#add8e6';
+            else if (d.class === 'women') return '#FFB6C1';
+            else if (d.class === 'unemployed') return '#FFFF99';
+            else if (d.class === 'retired') return '#90ee90';
+            else if (d.class === 'democrat') return '#add8e6';
+            else if (d.class === 'republican') return '#ffcccb';
+            else return '#d3d3d3'; // Default fill color
+        }
+
+        // Add the bars
+        svg.selectAll("bar")
+            .data(data)
+            .enter().append("rect")
+            .style("fill", function(d) { return getFillColor(d); })
+            .attr("x", function(d) { return x(d.label); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.value); })
+            .attr("height", function(d) { return height - y(d.value); });
+
+        svg.selectAll(".bar-label")
+            .data(data)
+            .enter().append("text")
+            .attr("class", "bar-label")
+            .attr("x", function(d) { return x(d.label) + x.rangeBand() / 2; })
+            // The y position is adjusted to be inside the bar. If the value is very small, 
+            // the label is positioned just above the bar to ensure visibility.
+            .attr("y", function(d) { 
+                var yPos = y(d.value);
+                return d.value > 10 ? yPos + 15 : yPos - 15; // BEA CHANGE
+            })
+            .attr("dy", ".35em") // Centers the text vertically
+            .attr("text-anchor", "middle")
+            .text(function(d) { return d.value.toFixed(2) + "%"; });
+        }
+
+      function removeBarChart() {
+        d3.select(".circle").html('');
+      }
+    </script>
+</div>
+  
+  <div class="select-container">
+    <select id="visualization-type">
+      <option value="">Select Category</option>
+      <option value="genderDistribution">Gender Distribution</option>
+      <option value="employmentStatus">Employment Status</option>
+      <option value="politicalParty">Political Party</option>
+    </select>
+  </div>
+  <div class="circle"></div>
+</div>
+<div class="end-text">Disclaimer: All cluster names are invented to act as an example of how the visualization would work given better results from our algorithm. They have no true definition and are abitrarily assigned.</div>
+</body>
+</html>
